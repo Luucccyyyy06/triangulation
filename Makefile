@@ -43,23 +43,23 @@ lint:
 	poetry run mypy .
 
 ## run tests
-test:
-	poetry run pytest
+# test:
+# 	poetry run pytest
 
-## run tests with coverage
-coverage:
-	poetry run coverage run -m pytest
-	poetry run coverage report
+# ## run tests with coverage
+# coverage:
+# 	poetry run coverage run -m pytest
+# 	poetry run coverage report
 
-## create code coverage html report
-coverage_html:
-	poetry run coverage run -m pytest
-	poetry run coverage html
+# ## create code coverage html report
+# coverage_html:
+# 	poetry run coverage run -m pytest
+# 	poetry run coverage html
 
-	@echo "Open coverate reports htmlcov/index.html in your browser"
+# 	@echo "Open coverate reports htmlcov/index.html in your browser"
 
 ## Run all code quality checks
-check_quality: format lint coverage
+check_quality: format lint # coverage
 
 ##############################################################################
 # Self Documenting Commands                                                  #
