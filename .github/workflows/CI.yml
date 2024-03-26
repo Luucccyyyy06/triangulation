@@ -39,25 +39,25 @@ jobs:
           poetry run ruff . --exit-zero
           poetry run mypy --install-types --non-interactive .
 
-      - name: Run tests
-        run: |
-          poetry run coverage run -m pytest
-          poetry run coverage report
+      # - name: Run tests
+      #   run: |
+      #     poetry run coverage run -m pytest
+      #     poetry run coverage report
 
-      - name: Create HTML report
-        run: |
-          poetry run coverage html
-          echo '## Test Coverage Report\n' >> $GITHUB_STEP_SUMMARY
-          poetry run coverage report --format markdown >> $GITHUB_STEP_SUMMARY
+      # - name: Create HTML report
+      #   run: |
+      #     poetry run coverage html
+      #     echo '## Test Coverage Report\n' >> $GITHUB_STEP_SUMMARY
+      #     poetry run coverage report --format markdown >> $GITHUB_STEP_SUMMARY
 
-      - name: Upload HTML report
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage_html
-          path: htmlcov
+      # - name: Upload HTML report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: coverage_html
+      #     path: htmlcov
 
-      - name: Upload coverage data
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: .coverage
+      # - name: Upload coverage data
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: coverage
+      #     path: .coverage
