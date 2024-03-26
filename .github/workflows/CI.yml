@@ -11,7 +11,7 @@ jobs:
     name: Code Quality Checks
     runs-on: ubuntu-latest
     steps:
-      - name: Chekout Repo
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
       - name: Install poetry
