@@ -1,0 +1,63 @@
+# This workflow will install Python dependencies, run tests and lint.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chekout Repo
+        uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: |
+          pipx install poetry
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "poetry"
+
+      - name: Install dependencies
+        run: |
+          poetry env use 3.10
+          poetry install
+
+      - name: Verify formatting
+        run: |
+          poetry run ruff . --select I
+          poetry run black --check .
+
+      - name: Lint
+        run: |
+          poetry run ruff . --exit-zero
+          poetry run mypy --install-types --non-interactive .
+
+      - name: Run tests
+        run: |
+          poetry run coverage run -m pytest
+          poetry run coverage report
+
+      - name: Create HTML report
+        run: |
+          poetry run coverage html
+          echo '## Test Coverage Report\n' >> $GITHUB_STEP_SUMMARY
+          poetry run coverage report --format markdown >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage_html
+          path: htmlcov
+
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: .coverage
